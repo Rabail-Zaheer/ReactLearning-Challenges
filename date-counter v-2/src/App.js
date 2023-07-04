@@ -24,25 +24,31 @@ function Counter() {
     if (count >= 0) setCount(count + step);
   }
 
-  function handleStepSub() {
-    if (step > 1) setStep(step - 1);
-  }
-
-  function handleStepAdd() {
-    if (step >= 0) setStep(step + 1);
+  function handleReset() {
+    setCount(0);
+    setStep(0);
   }
 
   return (
     <div>
       <div>
-        <button onClick={handleStepSub}>-</button>
+        <input
+          type="range"
+          min="0"
+          max="10"
+          value={step}
+          onChange={(e) => setStep(Number(e.target.value))}
+        />
         <span>Step: {step}</span>
-
-        <button onClick={handleStepAdd}>+</button>
       </div>
       <div>
         <button onClick={handleCountSub}>-</button>
-        <span>Count: {count}</span>
+
+        <input
+          type="text"
+          value={count}
+          onChange={(e) => setCount(Number(e.target.value))}
+        />
 
         <button onClick={handleCountAdd}>+</button>
       </div>
@@ -57,6 +63,12 @@ function Counter() {
         </span>
         <span>{date.toDateString()}</span>
       </p>
+
+      {count !== 0 || step !== 1 ? (
+        <div>
+          <button onClick={handleReset}></button>
+        </div>
+      ) : null}
     </div>
   );
 }
